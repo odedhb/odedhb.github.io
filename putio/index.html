@@ -61,7 +61,7 @@
                 += `<div onclick="showVideos('${token}',${file.id})">${file.name}</div>`;
         } else {
             document.getElementById("main_view").innerHTML
-                += `<div> - ${file.name}</div>`;
+                += `<div><a href="${file.screenshot}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
         }
     }
 </script>
