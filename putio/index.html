@@ -30,19 +30,18 @@
         return matches ? matches[1] : null;
     }
 
-    async function showVideos(token) {
-        let parentID = getHashValue("parent");
-        if (!parentID) {
-            parentID = 0;
+    async function showVideos(token, parentID) {
+        let listUrl = 'https://api.put.io/v2/files/list';
+        if (parentID) {
+            listUrl += "?parent_id=" + parentID
         }
 
-        let result = await fetch('https://api.put.io/v2/files/list', {
+        let result = await fetch(listUrl, {
             method: 'GET',
             headers: {
                 Authorization: "Bearer " + token,
                 'Content-Type': 'application/json'
             }
-            // body: JSON.stringify(data),
         });
         console.log(result);
         let contents = await result.json();
@@ -50,9 +49,14 @@
         for (let file of contents.files) {
             await showVideo(token, file);
         }
+
+        document.getElementById("main_view").innerHTML
+            += "______________<br><br>";
     }
 
     async function showVideo(token, file) {
         console.log("file", file);
+        document.getElementById("main_view").innerHTML
+            += `<div onclick="showVideos('${token}',${file.id})">${file.name}</div>`;
     }
 </script>
