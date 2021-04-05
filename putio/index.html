@@ -31,7 +31,7 @@
     }
 
     async function showVideos(token) {
-        let result = await fetch('https://api.put.io/v2/account/info', {
+        let result = await fetch('https://api.put.io/v2/files/list', {
             method: 'GET',
             headers: {
                 Authorization: "Bearer " + token,
