@@ -18,9 +18,14 @@
 
 <script>
     if (window.location.hash) {
-        document.getElementById("main_view").style.display = "none";
-        let token = window.location.hash.token;
+        document.getElementById("auth").style.display = "none";
+        let token = getHashValue("token");
         console.log(token);
     }
 
+
+    function getHashValue(key) {
+        var matches = location.hash.match(new RegExp(key + '=([^&]*)'));
+        return matches ? matches[1] : null;
+    }
 </script>
