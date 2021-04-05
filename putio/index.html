@@ -56,7 +56,12 @@
 
     async function showVideo(token, file) {
         console.log("file", file);
-        document.getElementById("main_view").innerHTML
-            += `<div onclick="showVideos('${token}',${file.id})">${file.name}</div>`;
+        if (file.file_type === "FOLDER") {
+            document.getElementById("main_view").innerHTML
+                += `<div onclick="showVideos('${token}',${file.id})">${file.name}</div>`;
+        } else {
+            document.getElementById("main_view").innerHTML
+                += `<div> - ${file.name}</div>`;
+        }
     }
 </script>
