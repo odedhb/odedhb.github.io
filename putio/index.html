@@ -30,8 +30,8 @@
         return matches ? matches[1] : null;
     }
 
-    async function showVideos(token, parentID) {
-
+    async function showVideos(token) {
+        let parentID = getHashValue("parent");
         if (!parentID) {
             parentID = 0;
         }
@@ -45,17 +45,14 @@
             // body: JSON.stringify(data),
         });
         console.log(result);
-        let contents = result.json();
-        console.log(contents);
+        let contents = await result.json();
+        console.log("contents", contents);
         for (let file of contents.files) {
             await showVideo(token, file);
         }
     }
 
     async function showVideo(token, file) {
-        if (file.file_type === "FOLDER") {
-            showVideos(token, file.id);
-        }
         console.log("file", file);
     }
 </script>
