@@ -21,8 +21,18 @@
         document.getElementById("auth").style.display = "none";
         let token = getHashValue("token");
         console.log(token);
-    }
 
+        let result = await fetch('https://api.put.io/v2/account/info', {
+            method: 'GET',
+            headers: {
+                Authorization: token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+        })
+
+        console.log(result);
+    }
 
     function getHashValue(key) {
         var matches = location.hash.match(new RegExp(key + '=([^&]*)'));
