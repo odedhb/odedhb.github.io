@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1>Put.io</h1>
+    <p>Previewer</p>
+
+    <a
+        href="https://app.put.io/authenticate?client_id=5165&redirect_uri=https%3A%2F%2Fodedhb.github.io%2Fputio&response_type=token">Connect
+        via Put.io</a>
+
+    <div id="main_view"></div>
+</body>
+
+</html>
+
+<script>
+    document.getElementById("main_view").innerHTML = window.location.hash;
+</script>
