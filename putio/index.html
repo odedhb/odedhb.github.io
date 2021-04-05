@@ -22,20 +22,23 @@
         let token = getHashValue("token");
         console.log(token);
 
-        let result = await fetch('https://api.put.io/v2/account/info', {
-            method: 'GET',
-            headers: {
-                Authorization: token,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-
-        console.log(result);
+        showVideos(token);
     }
 
     function getHashValue(key) {
         var matches = location.hash.match(new RegExp(key + '=([^&]*)'));
         return matches ? matches[1] : null;
+    }
+
+    async function showVideos(token) {
+        let result = await fetch('https://api.put.io/v2/account/info', {
+            method: 'GET',
+            headers: {
+                Authorization: "Basic " + token,
+                'Content-Type': 'application/json'
+            }
+            // body: JSON.stringify(data),
+        });
+        console.log(result);
     }
 </script>
