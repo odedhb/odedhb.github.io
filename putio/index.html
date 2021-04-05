@@ -5,9 +5,11 @@
     <h1>Put.io</h1>
     <p>Previewer</p>
 
-    <a
-        href="https://app.put.io/authenticate?client_id=5165&redirect_uri=https%3A%2F%2Fodedhb.github.io%2Fputio&response_type=token">Connect
-        via Put.io</a>
+    <div id="auth">
+        <a
+            href="https://app.put.io/authenticate?client_id=5165&redirect_uri=https%3A%2F%2Fodedhb.github.io%2Fputio&response_type=token">Connect
+            via Put.io</a>
+    </div>
 
     <div id="main_view"></div>
 </body>
@@ -15,5 +17,10 @@
 </html>
 
 <script>
-    document.getElementById("main_view").innerHTML = window.location.hash;
+    if (window.location.hash) {
+        document.getElementById("main_view").style.display = "none";
+        let token = window.location.hash.token;
+        console.log(token);
+    }
+
 </script>
