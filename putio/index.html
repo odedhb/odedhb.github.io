@@ -59,9 +59,9 @@
         if (file.file_type === "FOLDER") {
             document.getElementById("main_view").innerHTML
                 += `<div onclick="showVideos('${token}',${file.id})">${file.name}</div>`;
-        } else {
+        } else if (file.screenshot) {
             document.getElementById("main_view").innerHTML
-                += `<div><a href="${file.screenshot}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
+                += `<div><a href="https://app.put.io/files/${file.id}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
         }
     }
 </script>
