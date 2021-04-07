@@ -33,7 +33,7 @@
     async function showVideos(token, parentID) {
         let listUrl = 'https://api.put.io/v2/files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
         if (parentID) {
-            listUrl += "?parent_id=" + parentID
+            listUrl += "&parent_id=" + parentID
         }
 
         let result = await fetch(listUrl, {
