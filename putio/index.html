@@ -61,7 +61,7 @@
                 += `<div onclick="showVideos('${token}',${file.id})"><h3>${file.name}</h3></div>`;
         } else if (file.stream_url) {
             document.getElementById("main_view").innerHTML
-                += `<div><a href="https://app.put.io/files/${file.id}"><video width="320" height="240" controls loop><source src="${file.stream_url}#t=120,180"></video><div>${file.name}</div></a></div>`;
+                += `<div><a href="https://app.put.io/files/${file.id}"><video width="320" height="240" controls><source src="${file.stream_url}#t=60"></video><div>${file.name}</div></a></div>`;
         } else if (file.screenshot) {
             document.getElementById("main_view").innerHTML
                 += `<div><a href="https://app.put.io/files/${file.id}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
