@@ -30,7 +30,7 @@
         return matches ? matches[1] : null;
     }
 
-    async function showVideos(element, token, parentID) {
+    async function showVideos(token, parentID) {
         let listUrl = 'https://api.put.io/v2/files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
         if (parentID) {
             listUrl += "&parent_id=" + parentID
@@ -47,24 +47,23 @@
         let contents = await result.json();
         console.log("contents", contents);
         for (let file of contents.files) {
-            await showVideo(element, token, file);
+            await showVideo(token, file);
         }
 
         document.getElementById("main_view").innerHTML
             += "______________<br><br>";
     }
 
-    async function showVideo(element, token, file) {
+    async function showVideo(token, file) {
         console.log("file", file);
-        let element = element || document.getElementById("main_view");
         if (file.file_type === "FOLDER") {
-            element.innerHTML
-                += `<div onclick="showVideos(this,'${token}',${file.id})"><h3>${file.name}</h3></div>`;
+            document.getElementById("main_view").innerHTML
+                += `<div onclick="showVideos('${token}',${file.id})"><h3>${file.name}</h3></div>`;
         } else if (file.stream_url) {
-            element.innerHTML
-                += `<div><a href="https://app.put.io/files/${file.id}"><video width="320" height="240" controls poster="${file.screenshot}"><source src="${file.stream_url}#t=60"></video><div>${file.name}</div></a></div>`;
+            document.getElementById("main_view").innerHTML
+                += `<div><a href="https://app.put.io/files/${file.id}"><video width="320" height="240" controls poster="${file.screenshot}"><source src="${file.stream_url}"></video><div>${file.name}</div></a></div>`;
         } else if (file.screenshot) {
-            element.innerHTML
+            document.getElementById("main_view").innerHTML
                 += `<div><a href="https://app.put.io/files/${file.id}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
         }
     }
