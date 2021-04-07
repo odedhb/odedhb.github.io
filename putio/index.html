@@ -31,7 +31,7 @@
     }
 
     async function showVideos(token, parentID) {
-        let listUrl = 'https://api.put.io/v2/files/list';
+        let listUrl = 'https://api.put.io/v2/files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
         if (parentID) {
             listUrl += "?parent_id=" + parentID
         }
@@ -58,7 +58,7 @@
         console.log("file", file);
         if (file.file_type === "FOLDER") {
             document.getElementById("main_view").innerHTML
-                += `<div onclick="showVideos('${token}',${file.id})">${file.name}</div>`;
+                += `<div onclick="showVideos('${token}',${file.id})"><h3>${file.name}</h3></div>`;
         } else if (file.screenshot) {
             document.getElementById("main_view").innerHTML
                 += `<div><a href="https://app.put.io/files/${file.id}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
