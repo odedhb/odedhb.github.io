@@ -56,7 +56,7 @@
 
     async function showVideo(element, token, file) {
         console.log("file", file);
-        element = element || document.getElementById("main_view");
+        let element = element || document.getElementById("main_view");
         if (file.file_type === "FOLDER") {
             element.innerHTML
                 += `<div onclick="showVideos(this,'${token}',${file.id})"><h3>${file.name}</h3></div>`;
