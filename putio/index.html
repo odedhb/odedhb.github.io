@@ -17,12 +17,12 @@
 </html>
 
 <script>
-    if (window.location.hash) {
+    if (getHashValue("token")) {
+        document.cookie = getHashValue("token");
+    }
+    if (getToken()) {
         document.getElementById("auth").style.display = "none";
-        let token = getHashValue("token");
-        console.log(token);
-
-        showVideos(token);
+        showVideos();
     }
 
     function getHashValue(key) {
@@ -30,7 +30,10 @@
         return matches ? matches[1] : null;
     }
 
-    async function showVideos(token, parentID) {
+    function getToken() {
+        return document.cookie;
+    }
+    async function showVideos(parentID) {
         let listUrl = 'https://api.put.io/v2/files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
         if (parentID) {
             listUrl += "&parent_id=" + parentID
@@ -39,7 +42,7 @@
         let result = await fetch(listUrl, {
             method: 'GET',
             headers: {
-                Authorization: "Bearer " + token,
+                Authorization: "Bearer " + getToken(),
                 'Content-Type': 'application/json'
             }
         });
@@ -47,18 +50,18 @@
         let contents = await result.json();
         console.log("contents", contents);
         for (let file of contents.files) {
-            await showVideo(token, file);
+            await showVideo(file);
         }
 
         document.getElementById("main_view").innerHTML
             += "______________<br><br>";
     }
 
-    async function showVideo(token, file) {
+    async function showVideo(file) {
         console.log("file", file);
         if (file.file_type === "FOLDER") {
             document.getElementById("main_view").innerHTML
-                += `<div onclick="showVideos('${token}',${file.id})"><h3>${file.name}</h3></div>`;
+                += `<div onclick="showVideos(${file.id})"><h3>${file.name}</h3></div>`;
         } else if (file.stream_url) {
             document.getElementById("main_view").innerHTML
                 += `<div><a href="https://app.put.io/files/${file.id}"><video width="320" height="240" controls preload="none" poster="${file.screenshot}"><source src="${file.stream_url}"></video><div>${file.name}</div></a></div>`;
