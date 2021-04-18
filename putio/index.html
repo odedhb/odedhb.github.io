@@ -23,9 +23,6 @@
 </html>
 
 <script>
-    if (getHashValue("token")) {
-        document.cookie = getHashValue("token");
-    }
     if (getToken()) {
         document.getElementById("auth").style.display = "none";
         showVideos();
@@ -37,7 +34,10 @@
     }
 
     function getToken() {
-        return document.cookie;
+        if (getHashValue("token")) {
+            document.cookie = getHashValue("token");
+        }
+        return document.cookie || getHashValue("token");
     }
     async function showVideos(parentID) {
         let listUrl = 'https://api.put.io/v2/files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
