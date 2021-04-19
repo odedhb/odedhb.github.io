@@ -65,7 +65,7 @@
                 += `<div onclick="showVideos(${file.id})"><h3>${file.name}</h3></div>`;
         } else if (file.stream_url) {
             document.getElementById("main_view").innerHTML
-                += `<div><a href="https://app.put.io/files/${file.id}"><video ontimeupdate="loopIt(${file.id})" loop id="${file.id}" class="video-js" width="320" height="240" muted autoplay controls poster="${file.screenshot}"><source src="${file.stream_url}"></video><div>${file.name}</div></a></div>`;
+                += `<div><a href="https://app.put.io/files/${file.id}"><video ontimeupdate="loopIt(${file.id})" loop id="${file.id}" class="video-js" width="320" height="240" muted autoplay poster="${file.screenshot}"><source src="${file.stream_url}"></video><div>${file.name}</div></a></div>`;
 
 
         } else if (file.screenshot) {
