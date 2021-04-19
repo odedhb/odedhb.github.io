@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <link href="https://vjs.zencdn.net/7.11.4/video-js.css" rel="stylesheet" />
-</head>
-
 <body>
     <h1>Put.io</h1>
     <p>Previewer</p>
@@ -17,7 +13,6 @@
 
     <div id="main_view"></div>
 
-    <script src="https://vjs.zencdn.net/7.11.4/video.min.js"></script>
 </body>
 
 </html>
@@ -70,10 +65,15 @@
                 += `<div onclick="showVideos(${file.id})"><h3>${file.name}</h3></div>`;
         } else if (file.stream_url) {
             document.getElementById("main_view").innerHTML
-                += `<div><a href="https://app.put.io/files/${file.id}"><video id="${file.id}"onloadstart="document.getElementById('${file.id}').currentTime=500;document.getElementById('${file.id}').play()" class="video-js" width="320" height="240" muted controls poster="${file.screenshot}"><source src="${file.stream_url}"></video><div>${file.name}</div></a></div>`;
+                += `<div><a href="https://app.put.io/files/${file.id}"><video ontimeupdate="loopIt(${file.id})" id="${file.id}" class="video-js" width="320" height="240" muted autoplay controls poster="${file.screenshot}"><source src="${file.stream_url}"></video><div>${file.name}</div></a></div>`;
+
+
         } else if (file.screenshot) {
             document.getElementById("main_view").innerHTML
                 += `<div><a href="https://app.put.io/files/${file.id}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
         }
+    }
+    function loopIt(id) {
+        console.log("loopIt", id, document.getElementById(id).currentTime);
     }
 </script>
