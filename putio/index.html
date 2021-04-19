@@ -75,11 +75,12 @@
     }
     function loopIt(id) {
         let vid = document.getElementById(id);
+        let jump = Math.round(vid.duration / 10);
         let timeInSeconds = Math.round(vid.currentTime);
-        let modulu = timeInSeconds % 100;
+        let modulu = timeInSeconds % jump;
         console.log("modulu", modulu);
         if (modulu) {
-            vid.currentTime = vid.currentTime + (100 - modulu);
+            vid.currentTime = vid.currentTime + (jump - modulu);
         }
     }
 </script>
