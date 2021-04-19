@@ -74,6 +74,9 @@
         }
     }
     function loopIt(id) {
-        console.log("loopIt", id, document.getElementById(id).currentTime);
+        let vid = document.getElementById(id);
+        if (vid.currentTime > 305 || vid.currentTime < 300) {
+            vid.currentTime = 300;
+        }
     }
 </script>
