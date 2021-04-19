@@ -75,8 +75,11 @@
     }
     function loopIt(id) {
         let vid = document.getElementById(id);
-        if (vid.currentTime > 305 || vid.currentTime < 300) {
-            vid.currentTime = 300;
+        let timeInSeconds = Math.round(vid.currentTime);
+        let modulu = timeInSeconds % 100;
+        console.log("modulu", modulu);
+        if (modulu) {
+            vid.currentTime = vid.currentTime + (100 - modulu);
         }
     }
 </script>
