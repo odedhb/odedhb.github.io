@@ -81,14 +81,16 @@
         }
     }
     async function deleteFile(id, name) {
-        var r = window.confirm(`DELETE\n${name}\n???`);
+        console.log(`Delete:${id}`);
+        var r = window.confirm(`DELETE\n${name}\n${id}\n???`);
         if (r == true) {
             let result = await fetch(getBaseApiURL() + "/files/delete", {
                 method: 'POST',
                 body: [id],
                 headers: getAuthHeaders()
             });
-            alert(result);
+            alert(result.status);
+            console.log(result);
         } else {
             console.log("Don't delete " + name);
         }
