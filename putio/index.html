@@ -80,13 +80,15 @@
             vid.currentTime = vid.currentTime + (jump - modulu);
         }
     }
-    function deleteFile(id, name) {
+    async function deleteFile(id, name) {
         var r = window.confirm(`DELETE\n${name}\n???`);
         if (r == true) {
             let result = await fetch(getBaseApiURL() + "/files/delete", {
                 method: 'POST',
+                body: [id],
                 headers: getAuthHeaders()
             });
+            console.log(result);
         } else {
             console.log("Don't delete " + name);
         }
@@ -99,6 +101,6 @@
         };
     }
     function getBaseApiURL() {
-        return "https://api.put.io/v2/";
+        return "https://api.put.io/v2";
     }
 </script>
