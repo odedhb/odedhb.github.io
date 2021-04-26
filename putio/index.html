@@ -35,17 +35,14 @@
         return document.cookie || getHashValue("token");
     }
     async function showVideos(parentID) {
-        let listUrl = 'https://api.put.io/v2/files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
+        let listUrl = 'files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
         if (parentID) {
             listUrl += "&parent_id=" + parentID
         }
 
-        let result = await fetch(listUrl, {
-            method: 'GET',
-            headers: {
-                Authorization: "Bearer " + getToken(),
-                'Content-Type': 'application/json'
-            }
+        let result = await fetch(getBaseApiURL() + listUrl, {
+            method: "GET",
+            headers: getAuthHeaders()
         });
         console.log(result);
         let contents = await result.json();
@@ -71,7 +68,7 @@
                 += `<div><a href="https://app.put.io/files/${file.id}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
         }
 
-        document.getElementById("main_view").innerHTML += `<div onclick='deleteFile(${file.id},${file.name})'>DELETE ${file.name}</div>`
+        document.getElementById("main_view").innerHTML += `<div onclick='deleteFile("${file.id}","${file.name}")'>DELETE ${file.name}</div>`
     }
     function loopIt(id) {
         let vid = document.getElementById(id);
@@ -83,7 +80,25 @@
             vid.currentTime = vid.currentTime + (jump - modulu);
         }
     }
-    function deleteFile(id,name){
-        window.confirm(name);
+    function deleteFile(id, name) {
+        var r = window.confirm(`DELETE\n${name}\n???`);
+        if (r == true) {
+            let result = await fetch(getBaseApiURL() + "/files/delete", {
+                method: 'POST',
+                headers: getAuthHeaders()
+            });
+        } else {
+            console.log("Don't delete " + name);
+        }
+    }
+
+    function getAuthHeaders() {
+        return {
+            Authorization: "Bearer " + getToken(),
+            'Content-Type': 'application/json'
+        };
+    }
+    function getBaseApiURL() {
+        return "https://api.put.io/v2/";
     }
 </script>
