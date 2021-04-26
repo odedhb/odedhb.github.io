@@ -35,7 +35,7 @@
         return document.cookie || getHashValue("token");
     }
     async function showVideos(parentID) {
-        let listUrl = 'files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
+        let listUrl = '/files/list?sort_by=DATE_DESC&stream_url=true&stream_url_parent=true&mp4_stream_url=true&mp4_stream_url_parent=true&mp4_status=true';
         if (parentID) {
             listUrl += "&parent_id=" + parentID
         }
@@ -88,7 +88,7 @@
                 body: [id],
                 headers: getAuthHeaders()
             });
-            console.log(result);
+            alert(result);
         } else {
             console.log("Don't delete " + name);
         }
