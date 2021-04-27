@@ -75,7 +75,7 @@
         let jump = Math.round(vid.duration / 10);
         let timeInSeconds = Math.round(vid.currentTime);
         let modulu = timeInSeconds % jump;
-        console.log("modulu", modulu);
+        console.log(id, "modulu", modulu);
         if (modulu) {
             vid.currentTime = vid.currentTime + (jump - modulu);
         }
