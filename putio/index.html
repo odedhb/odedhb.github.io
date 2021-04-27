@@ -75,7 +75,6 @@
         let jump = Math.round(vid.duration / 10);
         let timeInSeconds = Math.round(vid.currentTime);
         let modulu = timeInSeconds % jump;
-        console.log(id, "modulu", modulu);
         if (modulu) {
             vid.currentTime = vid.currentTime + (jump - modulu);
         }
@@ -104,5 +103,24 @@
     }
     function getBaseApiURL() {
         return "https://api.put.io/v2";
+    }
+
+    // observeVideos and run them automatically
+    var videos = document.getElementsByTagName("video");
+    for (let video of videos) {
+        let isPaused = false;
+        let observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.intersectionRatio != 1 && !video.paused) {
+                    video.pause();
+                    isPaused = true;
+                }
+                else if (isPaused) {
+                    video.play();
+                    isPaused = false
+                }
+            });
+        }, { threshold: 1 });
+        observer.observe(video);
     }
 </script>
