@@ -64,8 +64,13 @@
             document.getElementById("main_view").innerHTML
                 += `<div onclick="showVideos(${file.id})"><h3>${file.name}</h3></div>`;
         } else if (file.stream_url) {
+
             document.getElementById("main_view").innerHTML
-                += `<div><a href="https://app.put.io/files/${file.id}"><video ontimeupdate="loopIt(${file.id})" loop id="${file.id}" class="video-js" width="1280" height="720" muted autoplay poster="${file.screenshot}"><source src="${file.stream_url}"></video><div>${file.name}</div></a></div>`;
+                += `<div><a href="https://app.put.io/files/${file.id}"><video ontimeupdate="loopIt('${file.id}_1',1000,1005)" loop id="${file.id}_1" class="video-js" width="320" height="240" muted autoplay poster="${file.screenshot}"><source src="${file.stream_url}#t=1000,1005"></video><div>${file.name}</div></a></div>`;
+
+            document.getElementById("main_view").innerHTML
+                += `<div><a href="https://app.put.io/files/${file.id}"><video ontimeupdate="loopIt('${file.id}_2',5000,5005)" loop id="${file.id}_2" class="video-js" width="320" height="240" muted autoplay poster="${file.screenshot}"><source src="${file.stream_url}#t=5000,5005"></video><div>${file.name}</div></a></div>`;
+
         } else if (file.screenshot) {
             document.getElementById("main_view").innerHTML
                 += `<div><a href="https://app.put.io/files/${file.id}"><img src="${file.screenshot}" /><div>${file.name}</div></a></div>`;
@@ -73,13 +78,10 @@
 
         document.getElementById("main_view").innerHTML += `<div onclick='deleteFile("${file.id}","${file.name}")'>DELETE ${file.name}</div>`
     }
-    function loopIt(id) {
+    function loopIt(id, start, stop) {
         let vid = document.getElementById(id);
-        let jump = Math.round(vid.duration / 10);
-        let timeInSeconds = Math.round(vid.currentTime);
-        let modulu = timeInSeconds % jump;
-        if (modulu) {
-            vid.currentTime = vid.currentTime + (jump - modulu);
+        if (vid.currentTime > (stop - 1)) {
+            vid.currentTime = (start);
         }
     }
     async function deleteFile(id, name) {
