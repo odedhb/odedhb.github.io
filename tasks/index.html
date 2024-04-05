@@ -24,4 +24,16 @@ tasks
     }
   })).json();
   console.log({ messages });
+  const messagePromises = [];
+  for (const message of messages.messages) {
+    const messageId = message.id;
+    const messageUrl = `${gmailApiUrl}/${messageId}`;
+    messagePromises.push(fetch(messageUrl, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    }));
+  }
+  const messageResponses = await Promise.allSettled(messagePromises);
+  console.log({ messageResponses });
 </script>
