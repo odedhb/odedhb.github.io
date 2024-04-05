@@ -12,7 +12,8 @@ tasks
   const params = new URLSearchParams(location.hash);
   const paramObj = Object.fromEntries(params.entries());
   console.log({ paramObj });
-  if (paramObj.state) {
-    localStorage.setItem(paramObj.state, JSON.stringify(paramObj));
+  const state = paramObj['#state'];
+  if (state) {
+    localStorage.setItem(state, JSON.stringify(paramObj));
   }
 </script>
