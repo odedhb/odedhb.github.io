@@ -18,11 +18,7 @@ tasks
   }
   const gmailApiUrl = 'https://www.googleapis.com/gmail/v1/users/me/messages';
   const accessToken = JSON.parse(localStorage.getItem('state_parameter_passthrough_value')).access_token;
-  const messages = await(await fetch(gmailApiUrl, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  })).json();
+  const messages = await(await fetch(gmailApiUrl, { headers: { Authorization: `Bearer ${accessToken}` } })).json();
   console.log({ messages });
   const messagePromises = [];
   for (const message of messages.messages) {
