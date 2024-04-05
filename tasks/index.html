@@ -16,4 +16,14 @@ tasks
   if (state) {
     localStorage.setItem(state, JSON.stringify(paramObj));
   }
+  const gmailApiUrl = 'https://www.googleapis.com/gmail/v1/users/me/messages';
+  const accessToken = JSON.parse(localStorage.getItem('state_parameter_passthrough_value')).access_token;
+  fetch(gmailApiUrl, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+    .then(res => res.json())
+    .then(console.log)
+    .catch(console.error);
 </script>
